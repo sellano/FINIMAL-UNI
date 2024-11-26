@@ -12,12 +12,14 @@
     height: auto !important;
 }
 
+html {
+  color: #fff;
+  color: rgba(255, 255, 255, 1);
+}
+
 /* Backdrop */
-.backgroundContainer {
-    background: url(https://i.imgur.com/dGBenC7.jpeg) center top no-repeat #030322;
-    -webkit-background-size: cover;
-    background-size: cover;
-	opacity: 0.2;
+.backgroundContainer, .preload {
+  background-color: #080210;
 }
 .splashLogo
 {background-image:url(assets/img/anlogo.png)}
@@ -27,7 +29,7 @@
     z-index: 1;
 }
 
-.itemsContainer.padded-left::before {
+.sections.homeSectionsContainer::before {
     content: '';
     position: fixed;
     top: 0;
@@ -36,12 +38,12 @@
     height: 100vh;
     background: url(https://i.imgur.com/dGBenC7.jpeg) center top no-repeat #030322;
     background-size: cover;
-    opacity: 0.7;
+    opacity: 0;
     z-index: -1;
     background-attachment: fixed;
 }
 
-.sectionTitleContainer.sectionTitleContainer-cards.padded-left::before {
+.pageTabContent.is-active::before {
     content: '';
     position: fixed;
     top: 0;
@@ -50,7 +52,7 @@
     height: 100vh;
     background: url(https://i.imgur.com/dGBenC7.jpeg) center top no-repeat #030322;
     background-size: cover;
-    opacity: 0.2;
+    opacity: 0.85;
     z-index: -1;
     background-attachment: fixed;
 }
@@ -70,8 +72,9 @@
     height: 100%;
     background: url(https://i.imgur.com/dGBenC7.jpeg) center top no-repeat #030322;
     background-size: cover;
-    opacity: 0.6;
+    opacity: 0.85;
     z-index: -1;
+	filter: saturate(45%) brightness(250%);
 }
 
 /* Apply bg to detailPage content */
@@ -89,7 +92,7 @@
     height: 100%;
     background: url(https://i.imgur.com/dGBenC7.jpeg) center top no-repeat #030322;
     background-size: cover;
-    opacity: 0.8;
+    opacity: 0.85;
     z-index: -1;
 }
 
@@ -117,7 +120,19 @@ h2 {
 }
 
 .textActionButton {
-    font-size: 11pt
+  font-size: 11pt;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.textActionButton:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #15afe6;
+  font-weight: 700;
+}
+
+.cardText-secondary, .fieldDescription, .guide-programNameCaret, .listItem .secondary, .nowPlayingBarSecondaryText, .programSecondaryTitle, .secondaryText {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Movies / Shows gallery titles */
@@ -134,7 +149,6 @@ h2 {
 }
 
 .parentName {
-  display: none;
   margin: 0 0 0;
 }
 
@@ -154,6 +168,8 @@ div.itemMiscInfo.itemMiscInfo-primary {
 /* Font size for the description */
 p.overview.detail-clamp-text {
     font-size: 12pt; 
+	color: #fff;
+	font-weight: 600;
 }
 
 /* Font size for the description */
@@ -165,6 +181,7 @@ p.overview.detail-clamp-text {
 span.homeLibraryText {
     font-family: "Nunito", sans-serif;
     font-size: 12pt;
+	transform: translateY(5%);
 }
 
 .layout-mobile span.homeLibraryText {
@@ -183,7 +200,7 @@ span.homeLibraryText {
 
 /* Apply progress bar gradient */
 .itemProgressBarForeground {
-    background: linear-gradient(to right, rgba(163, 95, 198, 1) 0%, rgba(6, 161, 217, 1) 100%);
+    background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% );
 }
 
 
@@ -209,9 +226,9 @@ span.homeLibraryText {
   padding-right: 0%;
 }
 
-/* Remove content title on desktop (redundant with logo) */
+
 .layout-desktop .itemName.infoText.parentNameLast {
-    display: none;
+    display: block;
 }
 
 .hide+.detailPageWrapperContainer .itemName {
@@ -232,6 +249,11 @@ span.homeLibraryText {
 
 .backgroundContainer.withBackdrop {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.emby-select-withcolor > option {
+  color: inherit;
+  background: #11091d;
 }
 
 /* Dashboard*/
@@ -336,16 +358,17 @@ progress::-webkit-progress-value {
 }
 
 /*Make watched icon, footer on chapter thumbnails (and other things), and count indicator dark and transparent*/
-.innerCardFooter,
-.countIndicator, 
-.playedIndicator {
-  background: linear-gradient(to right, rgba(163, 95, 198, 0.7) 0%, rgba(6, 161, 217, 0.7) 100%);
+.innerCardFooter {
+  background: #2f1b57b8;
   box-shadow: none;
   color: rgb(--accent);
 }
 
-.countIndicator {
+.countIndicator, 
+.playedIndicator {
+  background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% );
   box-shadow: none;
+  color: rgb(--accent);
 }
 
 /*Modify subtitle settings page*/
@@ -376,6 +399,7 @@ a[data-role="button"] {
 .navMenuOption:hover,
 .actionSheetMenuItem:hover {
   background: rgba(80, 80, 80, 0.8) !important;
+  color: #fff !important;
 }
 .paper-icon-button-light:hover {
   background-color: rgba(0, 0, 0, 0) !important;
@@ -645,7 +669,7 @@ progress::-webkit-progress-value {
 }
 
 .countIndicator {
-  background: rgba(var(--indicator),0.8);
+  background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% );
   box-shadow: none;
 }
 
@@ -1103,7 +1127,7 @@ div[data-role="controlgroup"] a[data-role="button"] {
     background-color: #00000000 !important;
   }
   .cardOverlayContainer {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.05);
   }
 }
 /* Play button hovering (for low width windows) */
@@ -1245,7 +1269,7 @@ div[data-role="controlgroup"] a[data-role="button"] {
 }
 
 .emby-button.show-focus:focus {
-  background: linear-gradient(to right, rgba(168, 6, 217, 0.3), rgba(6, 161, 217, 0.6)) !important;
+  background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% ) !important;
 }
 .paper-icon-button-light.show-focus:focus {
     color: rgba(var(--accent)) !important;
@@ -1259,7 +1283,9 @@ button-flat:hover {
 .raised:hover, 
 .fab:hover,
 a[data-role="button"]:hover {
-  background: linear-gradient(to right, rgba(168, 6, 217, 0.3), rgba(6, 161, 217, 0.6)) !important;
+	background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% ) !important;
+	color: #fff !important;
+	font-weight: 800;
 }
 
 .subtitleappearance-preview {
@@ -1379,7 +1405,6 @@ progress::-webkit-progress-value {
 @media (orientation: landscape){
   .layout-mobile .button-flat {
     margin-top: -1em !important;
-    padding-top: .85em !important;
   }
 }
 
@@ -1400,6 +1425,10 @@ progress::-webkit-progress-value {
 }
 .osdTitle {
   margin-left: 0.5em;
+}
+
+.osdTimeText {
+  font-size: 90%;
 }
 
 .videoOsdBottom {
@@ -1651,8 +1680,8 @@ progress::-webkit-progress-value {
 .dialog,
 .toast,
 .raised.homeLibraryButton:hover {
-  box-shadow: 0px 0px 5px rgb(var(--accent)) !important;
-  border: solid 1px rgba(var(--accent),0) !important;
+  box-shadow: 0px 0px 5px rgb(var(--accent));
+  border: solid 1px rgba(var(--accent),0);
 }
 .cardOverlayContainer {
   border: solid 1px rgba(var(--accent),0.0) !important;
@@ -1713,6 +1742,7 @@ progress::-webkit-progress-value {
 
 .cardOverlayButton {
   position: relative;
+  color: #fff;
 }
 
 
@@ -1745,8 +1775,22 @@ progress::-webkit-progress-value {
     transition: transform 1s ease;
 }
 
+.layout-desktop .homeLibraryButton {
+	font-weight: 700;
+	border-radius: 5em !important;
+}
+
+.layout-desktop .homeLibraryButton:hover, .layout-desktop .homeLibraryButton:focus {
+  filter: none !important;
+  background: #fff !important;
+  color: #000 !important;
+  height: 3.3em;
+  transform: revert;
+  font-weight: 700;
+}
+
 /*Style backdrop*/
-.backdropImage {filter: blur(0px) saturate(120%) contrast(130%) brightness(100%);}
+.backdropImage {filter: blur(0px) saturate(110%) contrast(115%) brightness(90%);}
 
 
 /* Center the listItem content */
@@ -1825,8 +1869,10 @@ progress::-webkit-progress-value {
 .itemsContainer.padded-left {
     flex: 1;
     display: flex; 
-    justify-content: center;
+}
 
+.layout-desktop #homeTab .section0 .verticalSection.verticalSection-extrabottompadding .itemsContainer.padded-left.padded-right.vertical-wrap.focuscontainer-x {
+	justify-content: center;
 }
 
 .sectionTitle.sectionTitle-cards {
@@ -1893,7 +1939,6 @@ progress::-webkit-progress-value {
     justify-content:center;
     margin-top:-2em;
     position:relative;
-    width:auto;
   }
 }
 
@@ -1911,7 +1956,6 @@ progress::-webkit-progress-value {
     justify-content:center;
     margin-top:-1.3em;
     position:relative;
-    width:auto;
   }
 }
 
@@ -1924,7 +1968,6 @@ progress::-webkit-progress-value {
     justify-content: center;
     margin-top: 0em;
     position: relative;
-    width: auto;
   }
 }
 
@@ -2079,9 +2122,12 @@ button.is-emby-button:hover emby-button .navMenuOptionText {
 }
 
 /* Video Playback Progress Bar */
-.mdl-slider-background-lower,
+.mdl-slider-background-lower {
+    background: linear-gradient(90deg, rgb(40.392% 6.275% 50.98%) 0%, rgb(40.023% 6.794% 51.27%) 6.25%, rgb(38.929% 8.334% 52.13%) 12.5%, rgb(37.154% 10.835% 53.525%) 18.75%, rgb(34.764% 14.2% 55.403%) 25%, rgb(31.852% 18.3% 57.69%) 31.25%, rgb(28.53% 22.978% 60.301%) 37.5%, rgb(24.925% 28.054% 63.133%) 43.75%, rgb(21.176% 33.333% 66.078%) 50%, rgb(17.428% 38.612% 69.024%) 56.25%, rgb(13.823% 43.688% 71.856%) 62.5%, rgb(10.501% 48.366% 74.466%) 68.75%, rgb(7.589% 52.467% 76.754%) 75%, rgb(5.199% 55.832% 78.632%) 81.25%, rgb(3.423% 58.332% 80.027%) 87.5%, rgb(2.33% 59.872% 80.886%) 93.75%, rgb(1.961% 60.392% 81.176%) 100% );
+}
+
 .mdl-slider-background-upper {
-    background: linear-gradient(to right, rgba(163, 95, 198, 0.5) 0%, rgba(6, 161, 217, 0.5) 100%);
+  background: #92dcf499;
 }
 
 .layout-desktop div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
@@ -2170,8 +2216,12 @@ button.is-emby-button:hover emby-button .navMenuOptionText {
 }
 
 /* Position release year, ratings */
-.mediaInfoItem {
-  margin-top: 0.6em !important;
+.layout-desktop .mediaInfoItem {
+	margin-top: 0.2em !important;
+}
+
+.layout-mobile .mediaInfoItem {
+	margin-top: 0.6em !important;
 }
 
 /* Raise Next Up cards on homepage */
@@ -2246,6 +2296,7 @@ button.is-emby-button:hover emby-button .navMenuOptionText {
 .infoWrapper {
   min-width: 52%;
   max-width: 100%;
+  max-height: 5.5em;
 }
 
 /* Padding on detailPage action buttons */
@@ -2274,17 +2325,24 @@ button.is-emby-button:hover emby-button .navMenuOptionText {
 @media (max-width: 32em) and (orientation: portrait) {
   .layout-mobile [dir="ltr"] .mainDetailButtons {
     margin-bottom: 0;
-    padding-left: 9em;
+    padding-left: 0em;
     font-size: 73%;
-  }
+	margin-top: 2em;
+	width: 100vw;
+    justify-content: space-around;
+	}
 }
 
 @media (min-width: 50em) {
   .layout-mobile [dir="ltr"] .mainDetailButtons {
     font-size: 85%;
     margin-bottom: 0em;
-    margin-top: 0em;
+    margin-top: 2em;
   }
+}
+
+.layout-mobile .mediaInfoOfficialRating {
+	position: relative;
 }
 
 .trackSelections .selectContainer {
@@ -2333,75 +2391,392 @@ button.is-emby-button:hover emby-button .navMenuOptionText {
 /* TV Mode */
 
 .layout-tv .noHeaderRight .headerRight, .noHomeButtonHeader .headerHomeButton {
-  display: inline-flex !important;
+	display: inline-flex !important;
 }
 
 .layout-tv .paper-icon-button-light {
-  display: inline-flex !important;
+	display: inline-flex !important;
 }
 
 .layout-tv .mainDrawer.hide.transition.touch-menu-la.drawer-open {
-  display: block !important;
+	display: block !important;
 }
 
 .layout-tv .portraitCard {
-  width: 12.5%;
+	width: 12.5%;
 }
 
 .layout-tv .detailPageWrapperContainer {
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-top: 27em;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-top: 27em;
 }
 
 .layout-tv .detailLogo {
-    position: static;
-    margin-left: 32.5%;
-    margin-right: 10%;
-    display: block;
-    -webkit-filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
-    filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
-    width: 64vw;
-    max-height: 21em;
-    height: 26vw;
-    margin-top: -23.95em;
-    margin-bottom: 3em;
+	position: static;
+	margin-left: 32.5%;
+	margin-right: 10%;
+	display: block;
+	-webkit-filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
+	filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
+	width: 64vw;
+	max-height: 21em;
+	height: 26vw;
+	margin-top: -23.95em;
+	margin-bottom: 3em;
 }
 
 .layout-tv .itemName.infoText.parentNameLast {
-    display: block;
-    font-size: 1.3em;
+	display: block;
+	font-size: 1.3em;
 }
 
 
 .layout-desktop .overflowBackdropCard {
-    width: 27.8em;
-    font-size: 90% !important;
+	width: 27.8em;
+	font-size: 90% !important;
 }
 
 .layout-desktop .verticalSection.section2 .card.overflowBackdropCard {
-  width: 13.88em !important;
-  font-size: 90% !important;
+	width: 13.88em !important;
+	font-size: 90% !important;
 }
 
 .verticalSection.section0 .textActionButton {
-  display: none;
+	display: none;
 }
 
 .layout-mobile .verticalSection-extrabottompadding {
-  margin-bottom: 1em;
-  margin-top: 0em;
+	margin-bottom: 1em;
+	margin-top: 0em;
 }
 
 .layout-desktop .verticalSection-extrabottompadding {
-  margin-bottom: 1em !important;
+	margin-bottom: 1em !important;
 }
 
 /* Remove empty space at bottom of page */
 .content-primary, .padded-bottom-page, .page, .pageWithAbsoluteTabs .pageTabContent {
-  padding-bottom: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 .collectionItems .itemsContainer.padded-left::before {
 	opacity: 0;
+}
+
+.layout-desktop #childrenContent .listItemBodyText.secondary.listItem-overview.listItemBodyText {
+	transition: filter 0.8s, opacity 0.8s;
+	filter: blur(0px);
+	opacity: 1;
+	max-height: 9em;
+	overflow-y: auto;
+}
+
+#childrenContent .listItem-content .listItemBodyText {
+	color: #fff;
+	font-weight: 600;
+}
+
+#childrenContent .listItem-content .secondary.listItemBodyText {
+	color: #fff;
+	font-weight: 300;
+}
+
+.layout-desktop #childrenContent .listItemBodyText.secondary.listItem-overview.listItemBodyText:hover {
+	filter: blur(0px);
+	opacity: 1;
+}
+
+.cardOverlayButtonIcon, .cardOverlayButtonIcon.material-icons {
+	display: flex;
+	filter: drop-shadow(1px -1px 1px rgba(2, 2, 2, 0.8));
+}
+
+#skipIntro .emby-button:hover, #skipIntro .emby-button:focus {
+
+}
+
+#skipIntro {
+
+}
+
+#skipIntro .emby-button {
+
+}
+
+.upNextContainer {
+  background: #000;
+  z-index: 50;
+}
+
+.raised.raised-mini.btnHide.upNextDialog-button.emby-button:hover {
+
+}
+
+/*Iskelderon's cleaner Scenes & Specials grid */
+@media (min-width:1800px) and (min-height:900px) {
+  #specialsCollapsible .emby-scroller,
+  #musicVideosCollapsible.emby-scroller,
+  #scenesCollapsible.emby-scroller {
+	margin-right: 0;
+  }
+
+  #specialsCollapsible .emby-scrollbuttons,
+  #musicVideosCollapsible .emby-scrollbuttons,
+  #scenesCollapsible .emby-scrollbuttons  {
+	display: none;
+  }
+
+  #specialsCollapsible .itemsContainer,
+  #musicVideosCollapsible .itemsContainer,
+  #scenesCollapsible .itemsContainer {
+	flex-wrap: wrap;
+  }
+
+  #specialsCollapsible .overflowBackdropCard,
+  #musicVideosCollapsible .overflowBackdropCard,
+  #scenesCollapsible .overflowBackdropCard {
+	max-width: 15.4vw;
+	}
+}
+
+.osdControls {
+	font-size: 1.25em;
+}
+
+.css-4yt2of, .css-139vfv2 {
+	background-color: rgb(20, 16, 28);
+	color: rgb(255, 255, 255);
+	background-image: none;
+}
+
+
+/*Change Intro Skip Color*/
+.skip-button {
+	bottom: 7.52em;
+	right: 7.5em;
+	color: #fff;
+	background: #000;
+	border: 1px solid white;
+	border-radius: 0;
+	padding: 0.5em 1em;
+	transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skip-button:hover,
+.skip-button:focus {
+	background: #fff;
+	color: #000;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.layout-mobile .backgroundContainer { background-color: transparent;}
+
+#myPreferencesMenuPage .sectionTitle {
+	text-decoration: underline;
+}
+
+#myPreferencesPage .readOnlycontent {
+	font-size: 90%;
+}
+
+#myPreferencesMenuPage .verticalSection-extrabottompadding .emby-button .listItem {
+	justify-content: center;
+}
+
+
+#myPreferencesMenuPage .verticalSection-extrabottompadding .emby-button .listItemBody {
+	overflow: visible;
+	text-overflow: unset;
+	white-space: wrap;
+	padding-right: 0.75em;
+}
+
+#myPreferencesMenuPage .verticalSection-extrabottompadding .emby-button .listItemBodyText {
+	text-overflow: visible !important;
+}
+
+.layout-mobile .flex.align-items-center.flex-grow.headerTop {
+  width: 100vw;
+  padding-left: 0;
+}
+
+.layout-mobile [dir="ltr"] .pageTitle {
+  margin: 0;
+}
+
+.layout-desktop div.itemMiscInfo.itemMiscInfo-primary {
+  margin-bottom: 0em !important;
+}
+
+.layout-mobile .itemMiscInfo, .layout-mobile .itemName, .layout-mobile .mainDetailButtons, .layout-mobile .parentName {
+  justify-content: center;
+  text-align: center;
+}
+
+button[is="paper-icon-button-light"].cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light.cardOverlayFab-primary[data-action="resume"] {
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 130%;
+  height: 3em;
+  left: 50%;
+  margin-left: -1.5em;
+  margin-top: -1.5em;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  width: 3em;
+}
+
+.first-imageEditor-buttons, .imageEditor-buttons {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+@media (min-width: 60em) {
+	.headerTabs.sectionTabs .tabs-viewmenubar.emby-tabs.focusable.scrollX .emby-tab-button.emby-button.emby-tab-button-active {
+		background: #fff;
+		color: #000 !important;
+		border-radius: 2em;
+		height: 2em;
+		width: auto;
+		transform: translateY(-11%);
+			transition: 0s;
+	}
+
+	.headerTabs.sectionTabs .tabs-viewmenubar.emby-tabs.focusable.scrollX .emby-tab-button.emby-button.emby-tab-button-active .emby-button-foreground {
+		transform: translateY(-33%);
+	}
+
+	.headerTabs .emby-tab-button {
+		transition: 0s !important;
+		width: auto;
+		color: #fff;
+	}
+
+	#moviesTab .listItem {
+		font-size: 1.15em;
+	}
+
+	#moviesTab .listItemBody.itemAction {
+		max-width: 60vw;
+	}
+
+	#moviesTab .secondary.listItemMediaInfo {
+		width: 13vw;
+	}
+
+	#moviesTab .secondary.listItemMediaInfo .mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 4vw;
+	}
+
+	#moviesTab .secondary.listItemMediaInfo .starRatingContainer.mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 4vw;
+		margin-right: 2vw;
+	}
+
+	#moviesTab .secondary.listItemMediaInfo .mediaInfoItem.mediaInfoText.closedCaptionMediaInfoText {
+		transform: translateX(-50%);
+		min-width: 1.5vw;
+		justify-content: center;
+	}
+
+	#moviesTab .listViewUserDataButtons {
+		width: 13vw;
+		justify-content: space-around;
+	}
+
+	#seriesTab .listItem {
+		font-size: 1.15em;
+	}
+
+	#seriesTab .listItemBody.itemAction {
+		max-width: 60vw;
+	}
+
+	#seriesTab .secondary.listItemMediaInfo {
+		width: 3vw;
+	}
+
+	#seriesTab .secondary.listItemMediaInfo .mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 4vw;
+	}
+
+	#seriesTab .secondary.listItemMediaInfo .starRatingContainer.mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 4vw;
+		margin-right: 2vw;
+	}
+
+	#seriesTab .secondary.listItemMediaInfo .mediaInfoItem.mediaInfoText.closedCaptionMediaInfoText {
+		transform: translateX(-50%);
+		min-width: 4vw;
+		justify-content: center;
+	}
+
+	#seriesTab .listViewUserDataButtons {
+		width: 13vw;
+		justify-content: space-around;
+	}
+	
+	#episodesTab .listItem {
+		font-size: 1.15em;
+	}
+
+	#episodesTab .listItemBody.itemAction {
+		max-width: 50vw;
+	}
+
+	#episodesTab .secondary.listItemMediaInfo {
+		width: 21vw;
+	}
+
+	#episodesTab .secondary.listItemMediaInfo .mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 6.5vw;
+		justify-content: center !important;
+		display: flex;
+		margin-right: 0;
+	}
+
+	#episodesTab .secondary.listItemMediaInfo .starRatingContainer.mediaInfoItem {
+		transform: translateX(-50%);
+		min-width: 6vw;
+		margin-right: 0vw;
+	}
+
+	#episodesTab .secondary.listItemMediaInfo .mediaInfoItem.mediaInfoText.closedCaptionMediaInfoText {
+		transform: translateX(-50%);
+		min-width: 1.5vw;
+		justify-content: center;
+		margin-right: 1em;
+	}
+
+	#episodesTab .listViewUserDataButtons {
+		width: 13vw;
+		justify-content: space-around;
+	}
+
+	#genresTab .portraitCard, .squareCard {
+		width: 11%;
+	}
+}
+
+#displayPreferencesPage .sectionTitle {
+  margin-bottom: 1em !important;
+  margin-left: 0em !important;
+}
+
+.card.overflowPortraitCard.card-hoverable.card-withuserdata:hover .countIndicator.indicator {
+  opacity: 0;
+}
+
+.card.portraitCard.card-hoverable.card-withuserdata:hover .countIndicator.indicator {
+  opacity: 0;
+}
+
+.countIndicator.indicator {
+  transition: opacity 0.3s ease;
 }
