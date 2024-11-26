@@ -19,6 +19,8 @@
     background-size: cover;
 	opacity: 0.2;
 }
+.splashLogo
+{background-image:url(assets/img/anlogo.png)}
 
 .itemsContainer.padded-left {
     position: top;
